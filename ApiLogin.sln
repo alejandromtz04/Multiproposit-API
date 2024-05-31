@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiLogin", "ApiLogin.csproj", "{313CA114-F2A5-456A-A0CC-8026C13C99CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{313CA114-F2A5-456A-A0CC-8026C13C99CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{313CA114-F2A5-456A-A0CC-8026C13C99CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{313CA114-F2A5-456A-A0CC-8026C13C99CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{313CA114-F2A5-456A-A0CC-8026C13C99CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {123F85FD-CF9E-4E30-9BF7-E3F81B803BDB}
+	EndGlobalSection
+EndGlobal

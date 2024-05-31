@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Consultas>
+	<Consulta>
+		<ID>0001</ID>
+		<NOTA>Datos del Empleado por Número de Expediente</NOTA>
+		<SQLTEXT>
+			select a.c_expediente as Expediente, a.s_nombres as Nombres, a.s_prim_ape + ' ' + case a.s_ape_casada when null then a.s_seg_ape when '' then a.s_seg_ape else ' DE '
+			+ a.s_ape_casada end as Apellidos, a.c_alfanumerico as Alfa, a.c_cen_cos as Ccostos, (SELECT d_cen_cos FROM cn_cen_cos where c_empresa = '04' and c_cen_cos = a.c_cen_cos)
+			as Nombrecc, case a.n_sexo when 2 then 'MASCULINO' else 'FEMENINO' end as Sexo from pl_expediente as a where a.c_empresa = '04' and a.c_expediente = 'args[0]' and a.b_activo = '1'
+		</SQLTEXT>
+	</Consulta>
+	<Consulta>
+		<ID>0002</ID>
+		<NOTA>Lista de Empleados por Centro de Costo</NOTA>
+		<SQLTEXT>
+			select a.c_expediente as Expediente, a.s_nombres as Nombres, a.s_prim_ape+' '+ case a.s_ape_casada when null then a.s_seg_ape when '' then a.s_seg_ape else ' DE '
+			+ a.s_ape_casada end as Apellidos, a.c_alfanumerico as Alfa, a.c_cen_cos as Ccostos, (SELECT d_cen_cos FROM cn_cen_cos where c_empresa = '04' and c_cen_cos = a.c_cen_cos)
+			as Nombrecc, case a.n_sexo when 2 then 'MASCULINO' else 'FEMENINO' end as Sexo from pl_expediente as a where a.c_empresa = '04' and (a.c_cen_cos = 'args[0]' or a.c_cen_cos = 'args[1]')
+			and a.b_activo = '1' order by a.c_cen_cos, Apellidos, Nombres
+		</SQLTEXT>
+	</Consulta>
+	<Consulta>
+		<ID>0003</ID>
+		<NOTA>Datos del Empleado por Usuario AD</NOTA>
+		<SQLTEXT>
+			select a.c_expediente as Expediente, a.s_nombres as Nombres, a.s_prim_ape + ' ' + case a.s_ape_casada when null then a.s_seg_ape when '' then a.s_seg_ape else ' DE '
+			+ a.s_ape_casada end as Apellidos, a.c_alfanumerico as Alfa, a.c_cen_cos as Ccostos, (SELECT d_cen_cos FROM cn_cen_cos where c_empresa = '04' and c_cen_cos = a.c_cen_cos)
+			as Nombrecc, case a.n_sexo when 2 then 'MASCULINO' else 'FEMENINO' end as Sexo from pl_expediente as a where a.c_empresa = '04' and rtrim(ltrim(a.c_id_usuario)) = 'args[0]'
+			and a.b_activo = '1'
+		</SQLTEXT>
+	</Consulta>
+	<Consulta>
+		<ID>0004</ID>
+		<NOTA>Lista de Activos</NOTA>
+		<SQLTEXT>
+			select a.c_activo_fijo as Cod_SADFI, a.c_actv_fijo_ant as Cod_FOX, d.d_categoria as Tipo, a.d_activo_fijo as Descripcion, b.s_marca as Marca, b.s_modelo as Modelo,
+			a.v_monto_original as US$_Equipo,  b.v_comp as US$_Componente, b.c_num_serie as Serie, c.c_cen_cos as CC, c.c_alfanumerico, c_expediente, c.s_nombre_isss as Empleado,
+			a.f_ing_act as Activado, case a.m_activo when "S" then "Activo" else "Inactivo" end as Estado, case a.b_bien_enuso when "S" then "En uso" else "Desuso" end as "Utilidad"
+			from ((af_actv_fijo a inner join af_componente b on a.c_activo_fijo = b.c_activo_fijo) inner join pl_expediente c on b.c_empleado_asig = c.c_empleado)
+			inner join af_categoria d on a.c_categoria = d.c_categoria where a.c_empresa = '04'
+		</SQLTEXT>
+	</Consulta>
+	<Consulta>
+		<ID>0005</ID>
+		<NOTA>Requisiones del Año Indicado</NOTA>
+		<SQLTEXT>sp_consulta_requ_aca 'args[0]',args[1]</SQLTEXT>
+	</Consulta>
+</Consultas>

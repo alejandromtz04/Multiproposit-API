@@ -1,0 +1,26 @@
+﻿<Servidores>
+	<Correo>
+		<Id>01</Id>
+		<servidor>mail.cepa.gob.sv</servidor>
+		<puerto>2552</puerto>
+		<cuenta>acajutla.contenedores@cepa.gob.sv</cuenta>
+		<nombre>"Puerto de Acajutla | Mensaje EDI"</nombre>
+		<pausa>1000</pausa>
+		<usuario>acajutla.contenedores</usuario>
+		<clave>AcA-(2018)</clave>
+		<email>henry.fuentes@cepa.gob.sv</email>
+		<para>Error en Mensaje EDI</para>
+	</Correo>
+	<Correo>
+		<Id>99</Id>
+		<servidor>mail.cepa.gob.sv</servidor>
+		<puerto>2552</puerto>
+		<cuenta>ti.acajutla@cepa.gob.sv</cuenta>
+		<nombre>IT - Puerto de Acajutla</nombre>
+		<pausa>1000</pausa>
+		<usuario>henry.fuentes</usuario>
+		<clave>henry2015</clave>
+		<email>henry.fuentes@cepa.gob.sv</email>
+		<para>Servidor Desarrollo IT - Puerto de Acajutla</para>
+	</Correo>
+</Servidores>
