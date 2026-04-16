@@ -1,6 +1,6 @@
-using ApiLogin.DAccess;
+using ApiLogin.Core.DB;
+using ApiLogin.Core.Security;
 using ApiLogin.Models;
-using ApiLogin.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -40,9 +40,9 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-builder.Services.AddScoped<IAuthenticationService, LdapAuthenticationService>();
+builder.Services.AddScoped<IAuthenticationService, LdapAuthentication>();
 builder.Services.AddSingleton<ConexionService>();
-builder.Services.AddSingleton<IJWTManagerRepository, JWTManagerRepository>();
+builder.Services.AddSingleton<IJWTManager, JWTManager>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -79,6 +79,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+AuthEndpoints.Map(app);
 app.UseAuthorization();
 
 app.MapControllers();

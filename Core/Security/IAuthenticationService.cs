@@ -1,6 +1,6 @@
 ﻿using ApiLogin.Models;
 
-namespace ApiLogin.Repository
+namespace ApiLogin.Core.Security
 {
     public interface IAuthenticationService
     {

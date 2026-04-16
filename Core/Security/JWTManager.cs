@@ -1,15 +1,16 @@
-﻿using ApiLogin.Models;
+﻿using ApiLogin.Models.Auth;
+using ApiLogin.Models.General;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace ApiLogin.Repository
+namespace ApiLogin.Core.Security
 {
-    public class JWTManagerRepository : IJWTManagerRepository
+    public class JWTManager : IJWTManager
     {
         private readonly IConfiguration iconfiguration;
-        public JWTManagerRepository(IConfiguration iconfiguration) 
+        public JWTManager(IConfiguration iconfiguration) 
         { 
             this.iconfiguration = iconfiguration;
         }

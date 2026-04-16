@@ -1,13 +1,15 @@
-﻿using ApiLogin.DAccess;
-using ApiLogin.Models;
-using ApiLogin.Repository;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
 using ChkAD;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Cors;
+using ApiLogin.Core.DAccess;
+using ApiLogin.Core.Security;
+using ApiLogin.Models.DB;
+using ApiLogin.Models.General;
+using ApiLogin.Core.DB;
 
 namespace ApiLogin.Controllers
 {
@@ -17,9 +19,9 @@ namespace ApiLogin.Controllers
     //[EnableCors("")]
     public class UsersController : ControllerBase
     {
-        private readonly IJWTManagerRepository _jwtManager;
+        private readonly IJWTManager _jwtManager;
         
-        public UsersController(IJWTManagerRepository jwtManager)
+        public UsersController(IJWTManager jwtManager)
         {
             _jwtManager = jwtManager;
         }

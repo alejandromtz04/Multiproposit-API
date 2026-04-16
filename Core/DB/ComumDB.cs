@@ -1,12 +1,12 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using System.Xml.Linq;
-using ApiLogin.Models;
-using ApiLogin.Repository;
 //using Sybase.Data.AseClient;
 using AdoNetCore.AseClient;
+using ApiLogin.Core.Security;
+using ApiLogin.Models.General;
 
-namespace ApiLogin.DAccess
+namespace ApiLogin.Core.DB
 {
     public class ComunDB
     {

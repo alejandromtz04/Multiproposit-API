@@ -1,8 +1,8 @@
-﻿using ApiLogin.Models;
-using System.Data;
-using ApiLogin.Repository;
+﻿using System.Data;
+using ApiLogin.Core.Security;
+using ApiLogin.Models.DB;
 
-namespace ApiLogin.DAccess
+namespace ApiLogin.Core.DB
 {
     public class DatosSQL<T>
     {

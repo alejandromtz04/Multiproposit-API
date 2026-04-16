@@ -1,9 +1,9 @@
-﻿using ApiLogin.Models;
+﻿using ApiLogin.Models.DB;
 using System.Data;
 using System.Reflection;
 using System.Text;
 
-namespace ApiLogin.Repository
+namespace ApiLogin.Core.Security
 {
     public static class ExtensionMethods
     {
@@ -48,16 +48,16 @@ namespace ApiLogin.Repository
                 TimeSpan span = date - inicio;
                 string lcBase36 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                 double msegundos = dateTime.TimeOfDay.TotalSeconds * 1000;
-                int dias = span.Days + 1 + (date.Year % 100) * 367;
+                int dias = span.Days + 1 + date.Year % 100 * 367;
                 for (int lcounter = 1; lcounter <= 6; lcounter++)
                 {
-                    double pos = (msegundos % 36);
+                    double pos = msegundos % 36;
                     resultado.Insert(0, lcBase36.Substring((int)pos, 1));
                     msegundos /= 36;
                 }
                 for (int lcounter = 1; lcounter <= 3; lcounter++)
                 {
-                    int pos = (dias % 36);
+                    int pos = dias % 36;
                     resultado.Insert(0, lcBase36.Substring(pos, 1));
                     dias /= 36;
                 }

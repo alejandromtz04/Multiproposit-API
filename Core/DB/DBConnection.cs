@@ -1,4 +1,4 @@
-﻿namespace ApiLogin.DAccess
+﻿namespace ApiLogin.Core.DAccess
 {
     public class DBConnection
     {

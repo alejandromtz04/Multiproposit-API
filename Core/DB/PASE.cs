@@ -1,7 +1,7 @@
 ﻿using ApiLogin.Models;
 using System.Xml.Linq;
 
-namespace ApiLogin.DAccess
+namespace ApiLogin.Core.DAccess
 {
     public class PASE
     {

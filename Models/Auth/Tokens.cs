@@ -1,4 +1,4 @@
-﻿namespace ApiLogin.Models
+﻿namespace ApiLogin.Models.Auth
 {
     public class Tokens
     {

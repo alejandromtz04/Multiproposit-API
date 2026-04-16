@@ -1,17 +1,17 @@
-﻿using ApiLogin.Models;
+﻿using ApiLogin.Models.Auth;
 using Microsoft.Extensions.Options;
 using System.DirectoryServices;
 
-namespace ApiLogin.Repository
+namespace ApiLogin.Core.Security
 {
-    public class LdapAuthenticationService : IAuthenticationService
+    public class LdapAuthentication : IAuthenticationService
     {
         private const string DisplayNameAttribute = "DisplayName";
         private const string SAMAccountNameAttribute = "SAMAccountName";
 
         private readonly LdapConfig config;
 
-        public LdapAuthenticationService(IOptions<LdapConfig> config)
+        public LdapAuthentication(IOptions<LdapConfig> config)
         {
             this.config = config.Value;
         }
@@ -24,7 +24,7 @@ namespace ApiLogin.Repository
                 {
                     using (DirectorySearcher searcher = new DirectorySearcher(entry))
                     {
-                        searcher.Filter = String.Format("({0}={1})", SAMAccountNameAttribute, userName);
+                        searcher.Filter = string.Format("({0}={1})", SAMAccountNameAttribute, userName);
                         searcher.PropertiesToLoad.Add(DisplayNameAttribute);
                         searcher.PropertiesToLoad.Add(SAMAccountNameAttribute);
                         var result = searcher.FindOne();

@@ -1,4 +1,4 @@
-﻿namespace ApiLogin.Repository
+﻿namespace ApiLogin.Core.Security
 {
     public static class MyServer
     {

@@ -1,10 +1,12 @@
-﻿using ApiLogin.DAccess;
+﻿using ApiLogin.Core.DAccess;
+using ApiLogin.Core.DB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace ApiLogin.Controllers
 {
-    public class TestController : ControllerBase
+    public class TestEndpoint : ControllerBase
     {
         [AllowAnonymous]
         [HttpGet]

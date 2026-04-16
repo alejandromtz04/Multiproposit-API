@@ -1,8 +1,8 @@
-﻿using ApiLogin.Models;
-using ApiLogin.Repository;
+﻿using ApiLogin.Core.Security;
+using ApiLogin.Models.DB;
 using System.Data;
 
-namespace ApiLogin.DAccess
+namespace ApiLogin.Core.DB
 {
     public class DatosASE<T>
     {
