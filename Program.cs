@@ -1,3 +1,4 @@
+using ApiLogin.DAccess;
 using ApiLogin.Models;
 using ApiLogin.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -5,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
+ComunDB.Configure(builder.Configuration);
 // Add services to the container.
 builder.Services.AddAuthentication(x =>
 {
@@ -40,13 +41,14 @@ builder.Services.AddAuthentication(x =>
 });
 
 builder.Services.AddScoped<IAuthenticationService, LdapAuthenticationService>();
-
+builder.Services.AddSingleton<ConexionService>();
 builder.Services.AddSingleton<IJWTManagerRepository, JWTManagerRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 var CEPAPolicy = "_CEPAPolicy";
 

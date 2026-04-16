@@ -19,6 +19,13 @@ namespace ApiLogin.DAccess
         //    string ruta = env.WebRootPath;
         //}
 
+        private static IConfiguration _config;
+
+        public static void Configure(IConfiguration config)
+        {
+            _config = config;
+        }
+
         #region General
         static string m_SQL_base; //= ConfigurationManager.ConnectionStrings["SQL_CON"].ConnectionString.ToString();
         static string m_ASE_base; //= ConfigurationManager.ConnectionStrings["ASE_CON"].ConnectionString.ToString();
@@ -87,21 +94,28 @@ namespace ApiLogin.DAccess
         #region SQLServer
         public static SqlConnection GetSQL(string nbase)
         {
-            SqlConnection _cont = null;
-            string mensaje = "";
-            m_SQL_base = obtenerServidor("SQL_CON");
-            string str_con = m_SQL_base.Replace("BASE_DATOS", nbase);
-            _cont = new SqlConnection(str_con);
+            if (_config == null)
+                throw new Exception("Configuración no inicializada");
+
+            var baseConn = _config.GetConnectionString("SQL_CON");
+
+            if (string.IsNullOrEmpty(baseConn))
+                throw new Exception("SQL_CON no configurado");
+
+            var str_con = baseConn.Replace("BASE_DATOS", nbase);
+
+            var conn = new SqlConnection(str_con);
+
             try
             {
-                _cont.Open();
+                conn.Open();
             }
-            catch (Exception exp)
+            catch (Exception ex)
             {
-                _cont = null;
-                mensaje = exp.ToString();
+                throw new Exception("Error al conectar SQL", ex);
             }
-            return _cont;
+
+            return conn;
         }
 
         public static void SQLCrearParametro(ref SqlCommand pComando, string pParametro, object pValue)
@@ -141,20 +155,23 @@ namespace ApiLogin.DAccess
         #region ASEServer
         public static AseConnection GetASE()
         {
-            //Data Source=myASEserver;Port=5000;Database=myDataBase;Uid=myUsername;Pwd=myPassword;
-            m_ASE_base = obtenerServidor("ASE_CON");
-            AseConnection conex = new AseConnection(m_ASE_base);
-            string mensaje = "";
+            var connStr = _config.GetConnectionString("ASE_CON");
+
+            if (string.IsNullOrEmpty(connStr))
+                throw new Exception("ASE_CON no configurado");
+
+            var conn = new AseConnection(connStr);
+
             try
             {
-                conex.Open();
+                conn.Open();
             }
-            catch (Exception exp)
+            catch (Exception ex)
             {
-                conex = null;
-                mensaje = exp.ToString();
+                throw new Exception("Error al conectar ASE", ex);
             }
-            return conex;
+
+            return conn;
         }
 
         public static void ASECrearParametro(ref AseCommand pComando, string pParametro, object pValue)
