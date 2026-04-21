@@ -1,76 +1,29 @@
-using ApiLogin.Core.DB;
-using ApiLogin.Core.Security;
-using ApiLogin.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using ApiLogin.Extensions; // Importamos las extensiones para no saturar el program
+using ApiLogin.Infraestructure.DB;
+// using ApiLogin.Endpoints; //  importar tus Minimal API aqui
 
 var builder = WebApplication.CreateBuilder(args);
+
+// 1. Configuración de Base de Datos Inicial
 ComunDB.Configure(builder.Configuration);
-// Add services to the container.
-builder.Services.AddAuthentication(x =>
-{
-    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(o =>
-{
-    var Key = Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]);
-    o.SaveToken = true;
-    o.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,            
-        ValidIssuer = builder.Configuration["JWT:Issuer"],
-        ValidAudience = builder.Configuration["JWT:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Key),
-        ClockSkew = TimeSpan.Zero,
-    };
-    o.Events = new JwtBearerEvents
-    {
-        OnAuthenticationFailed = context =>
-        {
-            if(context.Exception.GetType() == typeof(SecurityTokenExpiredException))
-            {
-                context.Response.Headers.Add("IS-TOKEN-EXPIRED", "true");
-            }
-            return Task.CompletedTask;
-        }
-    };
-});
 
-builder.Services.AddScoped<IAuthenticationService, LdapAuthentication>();
-builder.Services.AddSingleton<ConexionService>();
-builder.Services.AddSingleton<IJWTManager, JWTManager>();
+// 2. REGISTRO DE SERVICIOS
+builder.Services.AddInfrastructureServices(builder.Configuration);
 
+// 3. Swagger y Controllers (Mantenemos AddControllers por si aún tienes Controladores clásicos)
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-var CEPAPolicy = "_CEPAPolicy";
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: CEPAPolicy,
-        policy =>
-        {
-            policy.WithOrigins("*")
-            .AllowAnyMethod()
-            .AllowAnyHeader();            
-        });
-});
-
+// 4. CONSTRUCCIÓN DE LA APP
 var app = builder.Build();
 
-app.UseCors(CEPAPolicy);
+// 5. Configuración del Pipeline (Middleware)
+app.UseCors("_CEPAPolicy");
 
 AppDomain.CurrentDomain.SetData("ContentRootPath", app.Environment.ContentRootPath);
 AppDomain.CurrentDomain.SetData("WebRootPath", app.Environment.WebRootPath);
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -79,9 +32,17 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-AuthEndpoints.Map(app);
+// Primero Autenticación, luego Autorización
+app.UseAuthentication();
 app.UseAuthorization();
 
+// 5. MAPEO DE ENDPOINTS
+// Aquí irán todos tus Minimal APIs
+AuthEndpoints.Map(app); // El que ya tenías
+// UsersEndpoints.Map(app); // Cuando crees el de usuarios
+// ForecastEndpoints.Map(app); // Cuando crees el de clima
+
+// Mantenemos esto activo por si tienes archivos en tu carpeta Controllers
 app.MapControllers();
 
 app.Run();

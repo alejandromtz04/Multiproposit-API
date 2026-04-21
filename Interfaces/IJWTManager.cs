@@ -1,7 +1,7 @@
-﻿using ApiLogin.Models.Auth;
+﻿using ApiLogin.Infraestructure.Security;
 using ApiLogin.Models.General;
 
-namespace ApiLogin.Core.Security
+namespace ApiLogin.Interfaces
 {
     public interface IJWTManager
     {

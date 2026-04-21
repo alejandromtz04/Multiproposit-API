@@ -1,6 +1,7 @@
+using ApiLogin.Models.General;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiLogin.Controllers
+namespace ApiLogin.Endpoints.Forecast
 {
     [ApiController]
     [Route("[controller]")]

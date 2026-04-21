@@ -1,5 +1,4 @@
-﻿using ApiLogin.Core.DAccess;
-using ApiLogin.Core.DB;
+﻿using ApiLogin.Infraestructure.DB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

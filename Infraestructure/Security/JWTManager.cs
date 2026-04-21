@@ -1,11 +1,11 @@
-﻿using ApiLogin.Models.Auth;
+﻿using ApiLogin.Interfaces;
 using ApiLogin.Models.General;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace ApiLogin.Core.Security
+namespace ApiLogin.Infraestructure.Security
 {
     public class JWTManager : IJWTManager
     {

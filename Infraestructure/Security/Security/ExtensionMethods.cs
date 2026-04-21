@@ -3,7 +3,7 @@ using System.Data;
 using System.Reflection;
 using System.Text;
 
-namespace ApiLogin.Core.Security
+namespace ApiLogin.Infraestructure.Security.Security2
 {
     public static class ExtensionMethods
     {

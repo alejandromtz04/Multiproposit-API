@@ -3,10 +3,10 @@ using System.Data.SqlClient;
 using System.Xml.Linq;
 //using Sybase.Data.AseClient;
 using AdoNetCore.AseClient;
-using ApiLogin.Core.Security;
+using ApiLogin.Infraestructure.Security.Security2;
 using ApiLogin.Models.General;
 
-namespace ApiLogin.Core.DB
+namespace ApiLogin.Infraestructure.DB
 {
     public class ComunDB
     {
@@ -47,19 +47,19 @@ namespace ApiLogin.Core.DB
             return pComando.ExecuteReader();
         }
 
-        public static string obtenerServidor(string lbase)
-        {
-            string ruta01 = MyServer.MapPath("\\XML\\Bases.xml");
-            string servidor = "";
-            var doc = from c in XElement.Load(ruta01).Descendants("Base")
-                      where c.Element("nombre").Value == lbase.ToUpper()
-                      select c;
-            foreach (var el in doc)
-            {
-                servidor = el.Element("servidor").Value;
-            }
-            return servidor;
-        }
+        //public static string obtenerServidor(string lbase)
+        //{
+        //    string ruta01 = MyServer.MapPath("\\XML\\Bases.xml");
+        //    string servidor = "";
+        //    var doc = from c in XElement.Load(ruta01).Descendants("Base")
+        //              where c.Element("nombre").Value == lbase.ToUpper()
+        //              select c;
+        //    foreach (var el in doc)
+        //    {
+        //        servidor = el.Element("servidor").Value;
+        //    }
+        //    return servidor;
+        //}
 
         public static servidorCorreo servidor(string cadena, ref string msgError)
         {
@@ -97,14 +97,19 @@ namespace ApiLogin.Core.DB
             if (_config == null)
                 throw new Exception("Configuración no inicializada");
 
-            var baseConn = _config.GetConnectionString("SQL_CON");
+            var dbSection = _config.GetSection($"Databases:{nbase}");
 
-            if (string.IsNullOrEmpty(baseConn))
-                throw new Exception("SQL_CON no configurado");
+            if (!dbSection.Exists())
+                throw new Exception($"Base no configurada: {nbase}");
 
-            var str_con = baseConn.Replace("BASE_DATOS", nbase);
+            var server = dbSection["Server"];
+            var user = dbSection["User"];
+            var password = dbSection["Password"];
+            var trust = dbSection["TrustServerCertificate"];
 
-            var conn = new SqlConnection(str_con);
+            var connStr = $"Server={server};Database={nbase};User Id={user};Password={password};TrustServerCertificate={trust};";
+
+            var conn = new SqlConnection(connStr);
 
             try
             {
@@ -112,7 +117,7 @@ namespace ApiLogin.Core.DB
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al conectar SQL", ex);
+                throw new Exception($"Error al conectar a {nbase}", ex);
             }
 
             return conn;
@@ -155,21 +160,13 @@ namespace ApiLogin.Core.DB
         #region ASEServer
         public static AseConnection GetASE()
         {
-            var connStr = _config.GetConnectionString("ASE_CON");
+            var ase = _config.GetSection("ASE");
 
-            if (string.IsNullOrEmpty(connStr))
-                throw new Exception("ASE_CON no configurado");
+            var connStr = $"Data Source={ase["Server"]};Port={ase["Port"]};Database={ase["Database"]};Uid={ase["User"]};Pwd={ase["Password"]};";
 
             var conn = new AseConnection(connStr);
 
-            try
-            {
-                conn.Open();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al conectar ASE", ex);
-            }
+            conn.Open();
 
             return conn;
         }

@@ -1,9 +1,8 @@
-﻿using ApiLogin.Core.Security;
-using ApiLogin.Models.General;
-using ApiLogin.Core.DB;
+﻿using ApiLogin.Models.General;
 using ApiLogin.Models.DB;
-using ApiLogin.Core.DAccess;
 using ChkAD;
+using ApiLogin.Infraestructure.DB;
+using ApiLogin.Interfaces;
 
 public static class AuthEndpoints
 {

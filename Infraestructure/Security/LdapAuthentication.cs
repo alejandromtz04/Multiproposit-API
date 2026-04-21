@@ -1,8 +1,8 @@
-﻿using ApiLogin.Models.Auth;
+﻿using ApiLogin.Interfaces;
 using Microsoft.Extensions.Options;
 using System.DirectoryServices;
 
-namespace ApiLogin.Core.Security
+namespace ApiLogin.Infraestructure.Security
 {
     public class LdapAuthentication : IAuthenticationService
     {

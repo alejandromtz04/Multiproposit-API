@@ -1,8 +1,8 @@
 ﻿using System.Data;
-using ApiLogin.Core.Security;
+using ApiLogin.Infraestructure.Security.Security2;
 using ApiLogin.Models.DB;
 
-namespace ApiLogin.Core.DB
+namespace ApiLogin.Infraestructure.DB
 {
     public class DatosSQL<T>
     {

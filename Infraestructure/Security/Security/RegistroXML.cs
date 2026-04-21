@@ -1,9 +1,9 @@
 ﻿using System.Xml.Linq;
 using System.Xml;
-using ApiLogin.Core.Security;
 using ApiLogin.Models.DB;
+using ApiLogin.Infraestructure.Security.Security2;
 
-namespace ApiLogin.Core.Security
+namespace ApiLogin.Infraestructure.Security.Security2
 {
     public class RegistroXML
     {

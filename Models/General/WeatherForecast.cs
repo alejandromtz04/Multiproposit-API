@@ -1,4 +1,4 @@
-namespace ApiLogin
+namespace ApiLogin.Models.General
 {
     public class WeatherForecast
     {

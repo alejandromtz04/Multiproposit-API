@@ -5,13 +5,13 @@ using System.Net;
 using ChkAD;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Cors;
-using ApiLogin.Core.DAccess;
-using ApiLogin.Core.Security;
 using ApiLogin.Models.DB;
 using ApiLogin.Models.General;
-using ApiLogin.Core.DB;
 
-namespace ApiLogin.Controllers
+using ApiLogin.Infraestructure.DB;
+using ApiLogin.Interfaces;
+
+namespace ApiLogin.Endpoints
 {
     [Authorize]
     [Route("api/[controller]")]
