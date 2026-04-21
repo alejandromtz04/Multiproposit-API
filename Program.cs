@@ -32,17 +32,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Primero Autenticación, luego Autorización
+// Primero Autenticación y luego Autorización
 app.UseAuthentication();
 app.UseAuthorization();
 
 // 5. MAPEO DE ENDPOINTS
-// Aquí irán todos tus Minimal APIs
-AuthEndpoints.Map(app); // El que ya tenías
-// UsersEndpoints.Map(app); // Cuando crees el de usuarios
-// ForecastEndpoints.Map(app); // Cuando crees el de clima
+// Aqui iran las Minimal APIs
+AuthEndpoints.Map(app);
+// UsersEndpoints.Map(app);
+// ForecastEndpoints.Map(app);
 
-// Mantenemos esto activo por si tienes archivos en tu carpeta Controllers
+// activo mientras se usen controllers
 app.MapControllers();
-
 app.Run();
