@@ -1,8 +1,8 @@
 ﻿using System.Data;
-using ApiLogin.Infraestructure.Security.Security2;
+using ApiLogin.Extensions;
 using ApiLogin.Models.DB;
 
-namespace ApiLogin.Infraestructure.DB
+namespace ApiLogin.Infraestructure.Data
 {
     public class DatosSQL<T>
     {
@@ -18,7 +18,7 @@ namespace ApiLogin.Infraestructure.DB
                     {
                         foreach (var item in pproceso.Parametros)
                         {
-                            ComunDB.SQLCrearParametro(ref proce, item.nombre, item.valor);
+                            ComunDB.SQLCrearParametro(proce, item.nombre, item.valor);
                         }
                     }
                     int respuesta = ComunDB.ExecuteCommand(proce);
@@ -81,7 +81,7 @@ namespace ApiLogin.Infraestructure.DB
                     {
                         foreach (var item in pproceso.Parametros)
                         {
-                            ComunDB.SQLCrearParametro(ref _proce, item.nombre, item.valor);
+                            ComunDB.SQLCrearParametro(_proce, item.nombre, item.valor);
                         }
                     }
                     using (var _reader = ComunDB.SQLExecuteReader(_proce))
@@ -123,7 +123,7 @@ namespace ApiLogin.Infraestructure.DB
                         foreach (var item in pproceso.Parametros)
                         {
                             string lvalor = item.valor == "DateTime.Now" ? DateTime.Now.ToString("dd-MM-yyyy") : item.valor;
-                            ComunDB.SQLCrearParametro(ref _proce, item.nombre, item.valor);
+                            ComunDB.SQLCrearParametro(_proce, item.nombre, item.valor);
                         }
                     }
                     using (var _reader = ComunDB.SQLExecuteReader(_proce))

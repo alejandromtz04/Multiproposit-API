@@ -3,9 +3,9 @@ using System.Data;
 using System.Reflection;
 using System.Text;
 
-namespace ApiLogin.Infraestructure.Security.Security2
+namespace ApiLogin.Extensions
 {
-    public static class ExtensionMethods
+    public static class ExtensionMethods2
     {
         public static List<T> ToList<T>(this DataTable dt)
         {

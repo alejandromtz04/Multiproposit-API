@@ -8,6 +8,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="AdoNetCore.AseClient" Version="0.19.2" />
+		<PackageReference Include="Dapper" Version="2.1.72" />
 
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.26" />

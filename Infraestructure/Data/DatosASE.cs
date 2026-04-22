@@ -1,8 +1,8 @@
-﻿using ApiLogin.Infraestructure.Security.Security2;
+﻿using ApiLogin.Extensions;
 using ApiLogin.Models.DB;
 using System.Data;
 
-namespace ApiLogin.Infraestructure.DB
+namespace ApiLogin.Infraestructure.Data
 {
     public class DatosASE<T>
     {

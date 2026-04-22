@@ -1,9 +1,9 @@
-﻿using ApiLogin.Infraestructure.DB;
+﻿using ApiLogin.Infraestructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace ApiLogin.Controllers
+namespace ApiLogin.Endpoints.Test
 {
     public class TestEndpoint : ControllerBase
     {

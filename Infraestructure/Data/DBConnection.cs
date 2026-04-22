@@ -1,4 +1,4 @@
-﻿namespace ApiLogin.Infraestructure.DB
+﻿namespace ApiLogin.Infraestructure.Data
 {
     public class DBConnection
     {

@@ -3,22 +3,13 @@ using System.Data.SqlClient;
 using System.Xml.Linq;
 //using Sybase.Data.AseClient;
 using AdoNetCore.AseClient;
-using ApiLogin.Infraestructure.Security.Security2;
+using ApiLogin.Infraestructure.Security;
 using ApiLogin.Models.General;
 
-namespace ApiLogin.Infraestructure.DB
+namespace ApiLogin.Infraestructure.Data
 {
     public class ComunDB
     {
-        //private static readonly IWebHostEnvironment _env;
-
-        //private static string rutaServer = AppDomain.CurrentDomain.GetData("WebRootPath") as string;
-        //public ComunDB(IWebHostEnvironment env)
-        //{
-
-        //    string ruta = env.WebRootPath;
-        //}
-
         private static IConfiguration _config;
 
         public static void Configure(IConfiguration config)
@@ -123,7 +114,7 @@ namespace ApiLogin.Infraestructure.DB
             return conn;
         }
 
-        public static void SQLCrearParametro(ref SqlCommand pComando, string pParametro, object pValue)
+        public static void SQLCrearParametro(SqlCommand pComando, string pParametro, object pValue)
         {
             SqlParameter _parametro = pComando.CreateParameter();
             _parametro.ParameterName = pParametro;

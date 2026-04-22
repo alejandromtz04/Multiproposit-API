@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Cors;
 using ApiLogin.Models.DB;
 using ApiLogin.Models.General;
-
-using ApiLogin.Infraestructure.DB;
 using ApiLogin.Interfaces;
+using ApiLogin.Infraestructure.Data;
 
 namespace ApiLogin.Endpoints
 {

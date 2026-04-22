@@ -1,6 +1,8 @@
-﻿using ApiLogin.Infraestructure.DB;
+﻿using ApiLogin.Infraestructure.Data.Connections;
+using ApiLogin.Infraestructure.Data.Repositories.Bus;
 using ApiLogin.Infraestructure.Security;
 using ApiLogin.Interfaces;
+using ApiLogin.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -12,10 +14,24 @@ public static class ExtensionMethods
     // Pasamos IConfiguration para poder leer el appsettings.json para el JWT
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration config)
     {
-        // 1. INYECCIÓN DE DEPENDENCIAS (Servicios)
+
+        // FACTORIES
+        services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
+
+        // REPOSITORIES
+                services.AddScoped<IParadaAutorizadaRepository, ParadaAutorizadaRepository>();
+
+        // INTERFACES
+
+        services.AddScoped<IParadaAutorizadaService, ParadasAutorizadasService>();
         services.AddScoped<IAuthenticationService, LdapAuthentication>();
-        services.AddSingleton<ConexionService>();
         services.AddSingleton<IJWTManager, JWTManager>();
+
+        // INYECCION DE DEPENDENCIAS(Servicios)
+
+        services.AddScoped<ParadasAutorizadasService>();
+        services.AddSingleton<ConexionService>();
+
 
         // 2. CONFIGURACIÓN JWT
         services.AddAuthentication(x =>

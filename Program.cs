@@ -1,5 +1,6 @@
-using ApiLogin.Extensions; // Importamos las extensiones para no saturar el program
-using ApiLogin.Infraestructure.DB;
+using ApiLogin.Endpoints.Paradas;
+using ApiLogin.Extensions;
+using ApiLogin.Infraestructure.Data; // Importamos las extensiones para no saturar el program
 // using ApiLogin.Endpoints; //  importar tus Minimal API aqui
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +40,7 @@ app.UseAuthorization();
 // 5. MAPEO DE ENDPOINTS
 // Aqui iran las Minimal APIs
 AuthEndpoints.Map(app);
+ParadasAutorizadasEndpoint.Map(app);
 // UsersEndpoints.Map(app);
 // ForecastEndpoints.Map(app);
 

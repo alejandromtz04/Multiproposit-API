@@ -1,4 +1,4 @@
-﻿namespace ApiLogin.Infraestructure.Security.Security2
+﻿namespace ApiLogin.Infraestructure.Security
 {
     public static class MyServer
     {
