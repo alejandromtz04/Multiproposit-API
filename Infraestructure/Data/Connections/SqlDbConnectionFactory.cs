@@ -43,7 +43,7 @@ namespace ApiLogin.Infraestructure.Data.Connections
             var aseSection = _config.GetSection("ASE");
 
             if (!aseSection.Exists())
-                throw new Exception("Configuración ASE no encontrada.");
+                throw new InvalidOperationException("Configuración ASE no encontrada.");
 
             var connStr = $"Data Source={aseSection["Server"]};Port={aseSection["Port"]};Database={aseSection["Database"]};Uid={aseSection["User"]};Pwd={aseSection["Password"]};";
 

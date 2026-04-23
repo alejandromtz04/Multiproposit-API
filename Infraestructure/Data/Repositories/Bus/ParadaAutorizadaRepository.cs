@@ -16,16 +16,17 @@ namespace ApiLogin.Infraestructure.Data.Repositories.Bus
 
         public async Task<IEnumerable<ParadasAutorizadas>> ObtenerParadasAsync(int? idParada)
         {
-            // 1. Obtenemos la conexión específica para BUSES
+            // 1 Obtenemos la conexion para BUSES
             using var db = _connectionFactory.CreateSQLConnection("UPDP_BUSES");
 
-            // 2. Definimos los parámetros
+            // 2 Definimos los parametros
             var parameters = new { id_parada_autorizada = idParada };
 
-            // 3. Dapper ejecuta y mapea automáticamente.
-            // NOTA: Si el nombre de la columna en BD es "direccion" y en tu modelo es "direccion_parada",
-            // puedes manejarlo en el SP (SELECT direccion AS direccion_parada...) 
-            // o Dapper lo hará si los nombres coinciden exactamente.
+            // 3 Dapper ejecuta y mapea automáticamente.
+            // NOTA: Los modelos tienen que ser exactamente iguales a los nombres de las columnas que devuelve el SP, si no es asi, entonces
+            // no se puede usar un mapeo personalizado en Dapper ya que tienen que coincidir o usar alias.
+            // se puede manejar en el SP (SELECT direccion AS direccion_parada) 
+            // pero si los nombres coinciden entonces no es necesario hacer nada adicional, ya que Dapper lo hace automáticamente.
             return await db.QueryAsync<ParadasAutorizadas>(
                 "SP_CB_OBTENER_PARADAS_AUTORIZADAS",
                 parameters,
